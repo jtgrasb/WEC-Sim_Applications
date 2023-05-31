@@ -1,15 +1,15 @@
 % Simulation Data
 simu = simulationClass();             
 simu.simMechanicsFile = 'RM3MoorDyn.slx';  	% Location of Simulink Model File with MoorDyn
-simu.mode='accelerator';                
-simu.explorer = 'off';
+simu.mode='normal';                
+simu.explorer = 'on';
 simu.rampTime = 0;  
 simu.endTime=80;                      
 simu.dt = 0.01;                          
 simu.dtOut = 0.1;                           % Specifies output time-step  
 simu.cicDt = 0.05;           
 simu.solver = 'ode45';                      % Runs WEC-Sim with variable time-step
-simu.paraview.option = 1;                   % Saves data to *.vtp for Paraview
+%simu.paraview.option = 1;                   % Saves data to *.vtp for Paraview
 simu.domainSize = 300;                      % Changes default domain size
 
 %% Wave Information
@@ -21,6 +21,13 @@ waves.spectrumType = 'JS';
 waves.bem.option = 'Traditional';
 waves.viz.numPointsX = 1000;
 waves.viz.numPointsY = 2;
+
+x = linspace(-20,20,11)';
+y = linspace(-20,20,11)';
+[X,Y] = meshgrid(x,y);
+X = reshape(X.',1,[])';
+Y = reshape(Y',1,[])';
+waves.marker.location = [X,Y];
 
 %% Body Data
 % Float
