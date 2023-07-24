@@ -8,40 +8,36 @@ for ii = 1:length(controllersOutput)
 end
 
 endInd = length(controllersOutput.power);
-startTime = controllersOutput.time(end) - 10*waves.period; % select last 10 periods
+startTime = controllersOutput.time(end) - 4*waves.period; % select last 4 periods
 [~,startInd] = min(abs(controllersOutput.time(:) - startTime));
 
-mcr.meanPower(imcr) = mean(controllersOutput.power(startInd:endInd,3));
-mcr.meanForce(imcr) = mean(controllersOutput.force(startInd:endInd,3));
+mcr.meanControlPower(imcr) = mean(controllersOutput.power(startInd:endInd,3));
+mcr.maxControlForce(imcr) = max(controllersOutput.force(startInd:endInd,3));
 
-mcr.maxPower(imcr) = max(controllersOutput.power(startInd:endInd,3));
-mcr.maxForce(imcr) = max(controllersOutput.force(startInd:endInd,3));
+mcr.meanElecPower(imcr) = mean(elecPower);
+mcr.maxForce(imcr) = max(genForce);
 
-if imcr == 81
-
-    % Kp and Ki gains
-    kps = unique(mcr.cases(:,1));
-    kis = unique(mcr.cases(:,2));
-
-    i = 1;
-    for kpIdx = 1:length(kps)
-        for kiIdx = 1:length(kis)
-            meanPowerMat(kiIdx, kpIdx) = mcr.meanPower(i);
-            i = i+1;
-        end
-    end
+if imcr == 20
 
     % Plot surface for controller power at each gain combination
     figure()
-    surf(kps,kis,meanPowerMat)
+    plot(mcr.cases, mcr.meanControlPower)
+    hold on
+    plot(mcr.cases, mcr.meanElecPower)
     % Create labels
-    zlabel('Mean Controller Power (W)');
-    ylabel('Integral Gain/Stiffness (N/m)');
-    xlabel('Proportional Gain/Damping (Ns/m)');
+    ylabel('Mean Power (W)');
+    xlabel('Resistance (ohms)');
     % Set color bar and color map
-    C = colorbar('location','EastOutside');
-    colormap(jet);
-    set(get(C,'XLabel'),'String','Power (Watts)')
-    % Create title
-    title('Mean Power vs. Proportional and Integral Gains');
+    legend('Control Power', 'Elec Power')
+
+    % Plot surface for controller power at each gain combination
+    figure()
+    plot(mcr.cases, mcr.maxControlForce)
+    hold on
+    plot(mcr.cases, mcr.maxForce)
+    % Create labels
+    ylabel('Max Force (N)');
+    xlabel('Resistance (ohms)');
+    % Set color bar and color map
+    legend('Control Force', 'Gen Force')
 end

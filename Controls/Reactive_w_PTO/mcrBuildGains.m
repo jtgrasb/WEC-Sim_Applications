@@ -1,18 +1,12 @@
 close all;clear all;clc;
 %%
+% Change resistance
 mcr = struct();
-mcr.header = ["controller(1).proportionalIntegral.Kp","controller(1).proportionalIntegral.Ki"];
-mcr.cases = zeros(81,2);
+mcr.header = ["generatorR"];
+mcr.cases = zeros(20,1);
 %%
-Kp = linspace(1.8181e4,8.0181e4,9); Ki = linspace(-6.0355e5,-5.4355e5,9);
-Kpmat = []; Kimat = [];
-for jj = 1:length(Ki)
-    for ii = 1:length(Kp)
-        Kpmat        = [Kpmat;Kp(jj)];
-        Kimat        = [Kimat;Ki(ii)];
-    end
-end
+resistance = linspace(0.001,.02,20)';
 %%
-mcr.cases = [Kpmat,Kimat];
+mcr.cases = [resistance];
 %%
 save mcrCases mcr

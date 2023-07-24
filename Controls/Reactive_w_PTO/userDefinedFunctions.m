@@ -25,23 +25,18 @@ end
 % Plot controller power
 figure()
 plot(controllersOutput.time,controllersOutput.power(:,3))
-title('Controller Power')
+hold on
+plot(elecPower, '--')
+%plot(elecPower1, '.-')
+plot(mechPower, '-.')
+legend('Controller Power','Elec Power','Mech Power')
 ylabel('Power (W)')
 xlabel('Time (s)')
 
-% Calculate average power for last 10 wave periods
-endInd = length(controllersOutput.power(:,3));
-startTime = controllersOutput.time(end) - 10*waves.period; % select last 10 periods
-[~,startInd] = min(abs(controllersOutput.time(:) - startTime));
-disp('Controller Power:')
-mean( mean(controllersOutput.power(startInd:endInd,3)))
-
-% Plot controller and PTO force
+% Plot motor torque
 figure()
-plot(controllersOutput.time,controllersOutput.force(:,3))
+plot(shaftTorque)
 hold on
-plot(ptoForce/1e3)
-title('Controller Force')
-legend('Controller Force','PTO Force')
-ylabel('Power (W)')
+
+ylabel('Torque (N)')
 xlabel('Time (s)')
