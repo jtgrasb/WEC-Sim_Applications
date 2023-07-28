@@ -17,3 +17,5 @@ output.plotForces(1,3);
 % Plot heave power
 figure()
 plot(output.ptos.time,output.ptos.powerInternalMechanics(:,3))
+
+totForce = output.bodies.forceExcitation + output.bodies.forceRadiationDamping + output.bodies.forceAddedMass + output.bodies.forceRestoring;

@@ -35,16 +35,51 @@ Zi = Gi./(1j*hydro.simulation_parameters.w');
 Zi2 = -(1j*hydro.simulation_parameters.w'.*(mass+addedMass)) + radiationDamping + hydrostaticStiffness./(1j*hydro.simulation_parameters.w');
 
 % Instead, I want the excitation force timeseries
-t = linspace(0,100,1001);
-F_wave = A*cos(omega*t)*hydro.hydro_coeffs.excitation.re(3,closestIndOmega)*simu.rho*simu.gravity - A*sin(omega*t)*hydro.hydro_coeffs.excitation.im(3,closestIndOmega)*simu.rho*simu.gravity;
+t_vec = linspace(0,100,1001);
+F_wave = A*cos(omega*t_vec)*hydro.hydro_coeffs.excitation.re(3,closestIndOmega)*simu.rho*simu.gravity - A*sin(omega*t_vec)*hydro.hydro_coeffs.excitation.im(3,closestIndOmega)*simu.rho*simu.gravity;
+
+% What if I apply the total force to the impedance body?
+%F_wave = 
 
 figure()
-plot(t,F_wave)
+plot(t_vec,F_wave)
 hold on
-plot(output.bodies.time,output.bodies.forceExcitation(:,3))
+%plot(output.bodies.time,output.bodies.forceExcitation(:,3),'--')
 
 % Calculate the response based on timeseries excitation and impedance
 % impedance in frequency domain can be converted to transfer function
-Zi_num = 1;
-Zi_den = 1;
-Zi_tf = tf(num, den);
+%  = (-(m+A)s^2 + Bs + C_hs)/s - flip to calculate velocity from force!
+Zi_den = [(mass+addedMass(13)), radiationDamping(13), hydrostaticStiffness]; % at thirteenth (wave) frequency
+Zi_num = [1, 0];
+Zi_tf = tf(Zi_num, Zi_den);
+
+% Calculate velocity from impedance, then position
+vel = lsim(Zi_tf,F_wave, t_vec);
+h = t_vec(2) - t_vec(1);
+pos = cumtrapz(t_vec, vel);
+
+% Plot velocity - it matches WEC-Sim output!
+figure()
+plot(t_vec, vel)
+hold on
+%plot(output.bodies.time,output.bodies.velocity(:,3),'--')
+
+% plot position
+%figure()
+%plot(t, pos)
+%hold on
+%plot(output.bodies.time,output.bodies.position(:,3) - mean(output.bodies.position(:,3)),'--')
+
+syms s t
+snum = poly2sym(Zi_num, s);
+sden = poly2sym(Zi_den, s);
+
+td_tf = ilaplace(snum/sden);
+count = 1;
+for i = 0:.1:100
+    % y = x*h
+    vel_check(count) = double(subs(td_tf, t, i))*F_wave(count);
+    count = count+1;
+end
+
+plot(t_vec, vel_check,'-.')
