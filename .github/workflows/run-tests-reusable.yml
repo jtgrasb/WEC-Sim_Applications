@@ -55,6 +55,19 @@ jobs:
         with:
           repository: WEC-Sim/MoorDyn
           path: './MoorDyn'
+      - name: Fetch second-to-last commit
+        run: |
+          # Fetch the commit history
+          git fetch --prune
+          
+          # Get the second-to-last commit hash
+          SECOND_TO_LAST_COMMIT=$(git rev-parse HEAD~1)
+
+          # Output the commit hash
+          echo "Second-to-last commit: $SECOND_TO_LAST_COMMIT"
+
+          # Optionally, you can check out the second-to-last commit
+          git checkout $SECOND_TO_LAST_COMMIT
       - name: Copy MoorDyn Files
         if: matrix.folder == 'Mooring'
         run: |
