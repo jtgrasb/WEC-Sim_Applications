@@ -57,6 +57,8 @@ jobs:
           path: './MoorDyn'
       - name: Fetch second-to-last commit
         run: |
+          cd MoorDyn
+
           # Fetch the commit history
           git fetch --prune
           
