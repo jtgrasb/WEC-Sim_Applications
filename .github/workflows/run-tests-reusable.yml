@@ -54,13 +54,19 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: WEC-Sim/MoorDyn
+          fetch-depth: 2  # Fetch the last 2 commits
           path: './MoorDyn'
       - name: Fetch second-to-last commit
         run: |
           cd MoorDyn
 
-          # Fetch the commit history
-          git fetch --prune
+          # Check the number of commits
+          COMMIT_COUNT=$(git rev-list --count HEAD)
+
+          if [ "$COMMIT_COUNT" -lt 2 ]; then
+            echo "Not enough commits to checkout the second-to-last commit."
+            exit 1
+          fi
           
           # Get the second-to-last commit hash
           SECOND_TO_LAST_COMMIT=$(git rev-parse HEAD~1)
