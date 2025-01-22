@@ -70,6 +70,7 @@ jobs:
 
           # Optionally, you can check out the second-to-last commit
           git checkout $SECOND_TO_LAST_COMMIT
+        shell: bash  # Specify that this step should run in Bash
       - name: Copy MoorDyn Files
         if: matrix.folder == 'Mooring'
         run: |
