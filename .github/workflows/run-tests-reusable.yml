@@ -53,7 +53,7 @@ jobs:
         if: matrix.folder == 'Mooring'
         uses: actions/checkout@v4
         with:
-          repository: WEC-Sim/MoorDyn
+          repository: jtgrasb/MoorDyn
           path: './MoorDyn'
       - name: Copy MoorDyn Files
         if: matrix.folder == 'Mooring'
