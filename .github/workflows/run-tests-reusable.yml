@@ -54,6 +54,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: jtgrasb/MoorDyn
+          ref: 'main' 
           path: './MoorDyn'
       - name: Copy MoorDyn Files
         if: matrix.folder == 'Mooring'
