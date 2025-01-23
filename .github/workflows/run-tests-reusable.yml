@@ -53,8 +53,7 @@ jobs:
         if: matrix.folder == 'Mooring'
         uses: actions/checkout@v4
         with:
-          repository: jtgrasb/MoorDyn
-          ref: 'update_libmoordyn.dll'
+          repository: WEC-Sim/MoorDyn
           path: './MoorDyn'
       - name: Copy MoorDyn Files
         if: matrix.folder == 'Mooring'
