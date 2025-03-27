@@ -27,11 +27,14 @@ jobs:
       matrix:
         folder: ${{ fromJSON(inputs.folder) }}
         os: [ubuntu-latest, windows-latest]
-        release: [R2023b]
+        release: [R2024b]
         include: ${{ fromJSON(inputs.include) }}
         exclude:
           - os: ubuntu-latest
             folder: Mooring
+          - os: ubuntu-latest
+            folder: OWC
+          - folder: Paraview_Visualization
     name: "${{ matrix.folder }} - ${{ matrix.os }} - ${{ matrix.release }}"
     timeout-minutes: 45
     steps:
@@ -50,13 +53,13 @@ jobs:
           ref: ${{ inputs.base_ref }}
           path: './WEC-Sim'
       - name: Check out MoorDyn
-        if: matrix.folder == 'Mooring'
+        if: matrix.folder == 'Mooring' || matrix.folder == 'OWC'
         uses: actions/checkout@v4
         with:
           repository: WEC-Sim/MoorDyn
           path: './MoorDyn'
       - name: Copy MoorDyn Files
-        if: matrix.folder == 'Mooring'
+        if: matrix.folder == 'Mooring' || matrix.folder == 'OWC' 
         run: |
             cp * ../WEC-Sim/source/functions/moorDyn
             ls ../WEC-Sim/source/functions/moorDyn
