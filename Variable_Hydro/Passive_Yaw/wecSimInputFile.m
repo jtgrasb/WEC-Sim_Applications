@@ -4,35 +4,39 @@ simu.simMechanicsFile = 'OSWEC.slx';            % Specify Simulink Model File
 simu.mode = 'normal';                           % Specify Simulation Mode ('normal','accelerator','rapid-accelerator')
 simu.explorer = 'off';                          % Turn SimMechanics Explorer (on/off)
 simu.startTime = 0;                             % Simulation Start Time [s]
-simu.rampTime = 100;                            % Wave Ramp Time [s]
-simu.endTime = 600;                             % Simulation End Time [s]        
+simu.rampTime = 1;                            % Wave Ramp Time [s]
+simu.endTime = 2;                             % Simulation End Time [s]        
 simu.solver = 'ode4';                           % simu.solver = 'ode4' for fixed step & simu.solver = 'ode45' for variable step 
-simu.dt = 0.01;                                 % Simulation Time-Step [s]
+simu.dt = 0.1;                                 % Simulation Time-Step [s]
 simu.cicEndTime = 40;                           % Specify CI Time [s]
 
 %% Wave Information
-if exist('waveFlag','var') && isequal(waveFlag, 'irregular')
-    % Irregular Waves
-    waves = waveClass('irregular');                 % Initialize Wave Class and Specify Type                                 
-    waves.height = 2.5;                             % Wave Height [m]
-    waves.period = 8;                               % Wave Period [s]
-    waves.direction = 10;                           % Wave Directionality [deg]
-    waves.spread = 1;                               % Wave Directional Spreading [%}
-    waves.spectrumType = 'PM';                      % Wave spectrum type
-    waves.phaseSeed = 1;                            % Specify phase so repeatable
-else
-    % Regular Waves
-    waves = waveClass('regular');                   % Initialize Wave Class and Specify Type                                 
-    waves.height = 2.5;                             % Wave Height [m]
-    waves.period = 8;                               % Wave Period [s]
-    waves.direction = 10;                           % Wave Directionality [deg]
-    waves.spread = 1;                               % Wave Directional Spreading [%}
-end
+% if exist('waveFlag','var') && isequal(waveFlag, 'irregular')
+%     % Irregular Waves
+%     waves = waveClass('irregular');                 % Initialize Wave Class and Specify Type                                 
+%     waves.height = 2.5;                             % Wave Height [m]
+%     waves.period = 8;                               % Wave Period [s]
+%     waves.direction = 10;                           % Wave Directionality [deg]
+%     waves.spread = 1;                               % Wave Directional Spreading [%}
+%     waves.spectrumType = 'PM';                      % Wave spectrum type
+%     waves.phaseSeed = 1;                            % Specify phase so repeatable
+% else
+%     % Regular Waves
+%     waves = waveClass('regular');                   % Initialize Wave Class and Specify Type                                 
+%     waves.height = 2.5;                             % Wave Height [m]
+%     waves.period = 8;                               % Wave Period [s]
+%     waves.direction = 10;                           % Wave Directionality [deg]
+%     waves.spread = 1;                               % Wave Directional Spreading [%}
+% end
+
+waves = waveClass('elevationImport');          % Create the Wave Variable and Specify Type
+waves.elevationFile = 'elevationData.mat';     % Name of User-Defined Time-Series File [:,2] = [time, eta]
+waves.direction = 10;
 
 %% Body Data
 % Define h5 files for the flap
 if ~exist('bemDirections','var')
-    bemDirections = -30:0.25:30;
+    bemDirections = -30:1:30;
 end
 theta360 = wrapTo360(bemDirections);
 files = strcat('hydroData/oswec_', arrayfun(@num2str, theta360, 'UniformOutput', 0), '.h5');
