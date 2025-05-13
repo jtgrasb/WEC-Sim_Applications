@@ -39,6 +39,7 @@ ID     LineType  AttachA  AttachB  UnstrLen     NumSegs   LineOutputs
 200.0    TmaxIC       - max time for ic gen (s)
 2        writeLog     - Write a log file
 0        WriteUnits   - 0: do not write the units header on the output files
+1        disableOutTime - 1: do not write timesteps to command window
 -------------------------- OUTPUTS --------------------------------
 FairTen4
 FairTen5
