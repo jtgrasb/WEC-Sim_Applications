@@ -7,8 +7,9 @@ simu.startTime = 0;                             % Simulation Start Time [s]
 simu.rampTime = 0;                            % Wave Ramp Time [s]
 simu.endTime = 900;                             % Simulation End Time [s]        
 simu.solver = 'ode4';                           % simu.solver = 'ode4' for fixed step & simu.solver = 'ode45' for variable step 
-simu.dt = 0.05;                                 % Simulation Time-Step [s]
+simu.dt = 0.005;                                 % Simulation Time-Step [s]
 simu.cicEndTime = 15;                           % Specify CI Time [s]
+simu.dtOut = 0.1;
 simu.rho = 1025;
 
 %% Wave Information
@@ -16,8 +17,8 @@ simu.rho = 1025;
 % waves = waveClass('noWaveCIC');       % Initialize Wave Class and Specify Type 
 
 % % Regular Waves  
-% waves = waveClass('regular');           % Initialize Wave Class and Specify Type                                 
-% waves.height = 2.5;                     % Wave Height [m]
+% waves = waveClass('regularCIC');           % Initialize Wave Class and Specify Type                                 
+% waves.height = 1;                     % Wave Height [m]
 % waves.period = 8;                       % Wave Period [s]
 
 % Waves with imported wave elevation time-history  
