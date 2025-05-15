@@ -1,4 +1,5 @@
 Simulink
 Simscape
 Simscape_Multibody
+Signal_Processing_Toolbox
 Control_System_Toolbox

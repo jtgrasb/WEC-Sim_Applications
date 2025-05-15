@@ -3,10 +3,8 @@ classdef TestOWC < matlab.unittest.TestCase
     properties
         OriginalDefault
         testDir
-        h5DirOrifice = 'OrificeModel/hydroData'
+        h5DirOrifice = 'hydroData'
         h5NameOrifice = 'test17a.h5'
-        h5DirFloating = '../_Common_Input_Files/Floating_OWC/hydroData'
-        h5NameFloating = 'floatingOWC.h5'
     end
     
     methods (Access = 'public')
@@ -34,15 +32,6 @@ classdef TestOWC < matlab.unittest.TestCase
             end
             cd(testCase.testDir)
         end
-        function runBemioFloating(testCase)
-            cd(testCase.h5DirFloating);
-            if isfile(testCase.h5NameFloating)
-                fprintf('runBemio skipped, *.h5 already exists\n')
-            else
-                bemio
-            end
-            cd(testCase.testDir)
-        end
     end
     
     methods(TestMethodTeardown)
@@ -61,14 +50,6 @@ classdef TestOWC < matlab.unittest.TestCase
     
     methods(Test)
         function testOWCOrifice(testCase)
-            cd('OrificeModel')
-            wecSim
-        end
-        function testOWCFloating(testCase)
-            assumeEqual(testCase, exist("MoorDyn_caller", "file"), 2, ...
-                "MoorDyn is not installed");
-
-            cd('FloatingOWC_W2W')
             wecSim
         end
     end
