@@ -33,8 +33,24 @@ xlabel('time (s)')
 ylabel('heave disp (m)')
 
 figure()
+plot(output.bodies(1).time,output.bodies(1).forceRestoring(:,3))
+ylabel('restoring force')
+
+figure()
+plot(cgDisp)
+ylabel('disp cg')
+
+figure()
+plot(hsMass)
+ylabel('hs mass')
+
+figure()
+plot(hsVolume)
+ylabel('hs volume')
+
+figure()
 plot(output.ptos(1).time, output.ptos(1).powerInternalMechanics(:,3))
 yline(mean(output.ptos(1).powerInternalMechanics(:,3)))
 text(10,-5e4,sprintf('mean power = %.0f W', mean(output.ptos(1).powerInternalMechanics(:,3))))
 xlabel('time (s)')
-ylabel('heave disp (m)')
+ylabel('power (W)')

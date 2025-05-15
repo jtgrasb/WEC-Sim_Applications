@@ -5,7 +5,7 @@ simu.mode = 'normal';                   % Specify Simulation Mode ('normal','acc
 simu.explorer='off';                     % Turn SimMechanics Explorer (on/off)
 simu.startTime = 0;                     
 simu.rampTime = 50;                        
-simu.endTime=150;                       
+simu.endTime=15;                       
 simu.dt = 0.05;                         
 simu.rho=1025;                                                                                                           
 

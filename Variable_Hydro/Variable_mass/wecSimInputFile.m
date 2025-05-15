@@ -1,13 +1,13 @@
 %% Simulation Data
 simu = simulationClass();                       % Initialize Simulation Class
-simu.simMechanicsFile = 'sphere.slx';            % Specify Simulink Model File
+simu.simMechanicsFile = 'sphereVarMass.slx';            % Specify Simulink Model File
 simu.mode = 'normal';                           % Specify Simulation Mode ('normal','accelerator','rapid-accelerator')
 simu.explorer = 'on';                          % Turn SimMechanics Explorer (on/off)
 simu.startTime = 0;                             % Simulation Start Time [s]
 simu.rampTime = 0;                            % Wave Ramp Time [s]
 simu.endTime = 900;                             % Simulation End Time [s]        
 simu.solver = 'ode4';                           % simu.solver = 'ode4' for fixed step & simu.solver = 'ode45' for variable step 
-simu.dt = 0.005;                                 % Simulation Time-Step [s]
+simu.dt = 0.05;                                 % Simulation Time-Step [s]
 simu.cicEndTime = 15;                           % Specify CI Time [s]
 simu.dtOut = 0.1;
 simu.rho = 1025;
@@ -17,14 +17,14 @@ simu.rho = 1025;
 % waves = waveClass('noWaveCIC');       % Initialize Wave Class and Specify Type 
 
 % % Regular Waves  
-% waves = waveClass('regularCIC');           % Initialize Wave Class and Specify Type                                 
-% waves.height = 1;                     % Wave Height [m]
-% waves.period = 8;                       % Wave Period [s]
+waves = waveClass('regular');           % Initialize Wave Class and Specify Type                                 
+waves.height = 1;                     % Wave Height [m]
+waves.period = 8;                       % Wave Period [s]
 
 % Waves with imported wave elevation time-history  
-waves = waveClass('elevationImport');          % Create the Wave Variable and Specify Type
-waves.elevationFile = 'elevationData.mat';     % Name of User-Defined Time-Series File [:,2] = [time, eta]
-waves.direction = 0;
+% waves = waveClass('elevationImport');          % Create the Wave Variable and Specify Type
+% waves.elevationFile = 'elevationData.mat';     % Name of User-Defined Time-Series File [:,2] = [time, eta]
+% waves.direction = 0;
 
 %% Body Data
 % Define h5 files for the sphere
@@ -50,7 +50,7 @@ body(1).mass = 'equilibrium';                           % User-Defined mass [kg]
 body(1).inertia = inertiaVal(5,:);   % Moment of Inertia [kg*m^2]
 body(1).initial.displacement = [0, 0, 0];
 body(1).variableHydro.option = 1;
-body(1).variableHydro.hydroForceIndexInitial = 5;
+body(1).variableHydro.hydroForceIndexInitial = 1;
 body(1).variableHydro.mass = massVal; % 'equilibrium'
 body(1).variableHydro.inertia = inertiaVal;
 
