@@ -1,15 +1,10 @@
 % This script identifies the dynamics of the float in the respective wave 
 % conditions and determines the optimal proportional gain value for a 
 % passive controller (for regular waves)
-clear all
-close all
-clc
-
 draftVals = 1:9;
 figure()
 
 for ii = 1:length(draftVals)
-
     % Load hydrodynamic data for float from BEM
     filename = ['hydroData/WAMIT/draft' num2str(draftVals(ii)) '.h5'];
     hydro = readH5ToStruct(filename);
