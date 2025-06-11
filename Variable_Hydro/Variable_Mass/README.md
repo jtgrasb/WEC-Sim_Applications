@@ -12,3 +12,4 @@ This application demonstrates using WEC-Sim's variable hydrodynamics advanced fe
 The sphere's mass is set-up to change instantaneously every 100 seconds. 
 This model requires a broken library link--WEC-Sim does not support this model with a varying mass.
 To recreate: duplicate the changes within sphereVarMass/Float/Hydrodynamic Body/Structure
+R2023b or later is required because the Simulink model uses the "Create Diagonal Matrix" block which was only moved to standard Simulink in R2023b.
