@@ -5,7 +5,7 @@ simu.mode = 'normal';                           % Specify Simulation Mode ('norm
 simu.explorer = 'on';                           % Turn SimMechanics Explorer (on/off)
 simu.startTime = 0;                             % Simulation Start Time [s]
 simu.rampTime = 0;                              % Wave Ramp Time [s]
-simu.endTime = 900;                             % Simulation End Time [s]        
+simu.endTime = 9;                             % Simulation End Time [s]        
 simu.solver = 'ode4';                           % simu.solver = 'ode4' for fixed step & simu.solver = 'ode45' for variable step 
 simu.dt = 0.05;                                 % Simulation Time-Step [s]
 simu.cicEndTime = 15;                           % Specify CI Time [s]
@@ -39,7 +39,7 @@ end
 
 % Sphere
 body(1) = bodyClass(h5Files);
-body(1).geometryFile = 'geometry/sphere.stl';
+body(1).geometryFile = '../../_Common_Input_Files/Sphere/geometry/sphere.stl';
 body(1).mass = 'equilibrium';
 body(1).inertia = inertiaVal(5,:);
 body(1).initial.displacement = [0, 0, 0];

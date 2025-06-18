@@ -95,7 +95,6 @@ WECCCOMP/**/SS*.fig
 Passive_Yaw/**/IrrYaw.mat
 Passive_Yaw/**/figYawIrr.fig
 yaw*.mat
-!/Variable_Hydro/Variable_Mass/hydroData/WAMIT/*.h5
 
 
 
