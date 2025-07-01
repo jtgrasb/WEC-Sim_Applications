@@ -1,12 +1,12 @@
-% This script identifies the dynamics of the float in the respective wave 
-% conditions and determines the optimal proportional gain value for a 
-% passive controller (for regular waves)
+% This script identifies the dynamics of the float for the different draft
+% values. This script is not used by the example here but could be used to 
+% design a controller that changes the draft for different wave conditions.
 draftVals = 1:9;
 figure()
 
 for ii = 1:length(draftVals)
     % Load hydrodynamic data for float from BEM
-    filename = ['hydroData/WAMIT/draft' num2str(draftVals(ii)) '.h5'];
+    filename = ['hydroData/draft' num2str(draftVals(ii)) '.h5'];
     hydro = readH5ToStruct(filename);
     rho = 1000;
     gravity = 9.81;

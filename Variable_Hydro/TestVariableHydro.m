@@ -3,11 +3,13 @@ classdef TestVariableHydro < matlab.unittest.TestCase
     properties
         OriginalDefault
         testDir
-        h5Dir = fullfile("hydroData")
-        h5Name = 'oswec_0.h5'
+        h5DirPY = ['Passive_Yaw',filesep,'hydroData']
+        h5NamePY = 'oswec_0.h5'
         outName = 'oswec.out'
+        h5DirVM = ['Variable_Mass',filesep,'hydroData']
+        h5NameVM = 'draft1.h5'
+
     end
-    
     
     methods (Access = 'public')
         function obj = TestVariableHydro
@@ -27,9 +29,19 @@ classdef TestVariableHydro < matlab.unittest.TestCase
             testCase.OriginalDefault = get(0, 'DefaultFigureVisible');
         end
         
-        function runBemio(testCase)
-            cd(testCase.h5Dir);
-            if isfile(testCase.h5Name)
+        function runBemioPY(testCase)
+            cd(testCase.h5DirPY);
+            if isfile(testCase.h5NamePY)
+                fprintf('runBemio skipped, *.h5 already exists\n')
+            else
+                bemio
+            end
+            cd(testCase.testDir)
+        end
+
+        function runBemioVM(testCase)
+            cd(testCase.h5DirVM);
+            if isfile(testCase.h5NameVM)
                 fprintf('runBemio skipped, *.h5 already exists\n')
             else
                 bemio
@@ -38,20 +50,29 @@ classdef TestVariableHydro < matlab.unittest.TestCase
         end
         
     end
+
+    methods(TestMethodTeardown)
+        function returnHome(testCase)
+            cd(testCase.testDir)
+        end
+    end
     
     methods(TestClassTeardown)
-        
         function checkVisibilityRestored(testCase)
             set(0, 'DefaultFigureVisible', testCase.OriginalDefault);
             testCase.assertEqual(get(0, 'DefaultFigureVisible'),    ...
                                  testCase.OriginalDefault);
-        end
-        
+        end 
     end
     
     methods(Test)
-        function testCable(testCase)
+        function testPY(testCase)
+            cd('Passive_Yaw')
             runCases
+        end
+        function testVM(testCase)
+            cd('Variable_Mass')
+            wecSim
         end
     end
     
