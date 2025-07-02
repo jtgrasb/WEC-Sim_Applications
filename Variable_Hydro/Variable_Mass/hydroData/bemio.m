@@ -1,6 +1,4 @@
 close all
-clear all
-clc
 
 for ii = 1:9
 
