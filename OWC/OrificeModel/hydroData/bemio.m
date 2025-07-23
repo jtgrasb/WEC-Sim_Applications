@@ -8,6 +8,7 @@
 
 load deSpike.mat
 outHydro = badBemioFix_fcn({'test17a.out'},'WAMIT',deSpike,[1,1;3,3;5,5;7,7]);
+writeBEMIOH5(outHydro);
 
 %% Run BEMIO for WAMIT Run
 
