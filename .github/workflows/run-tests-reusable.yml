@@ -62,7 +62,7 @@ jobs:
       - name: Copy MoorDyn Files
         if: matrix.folder == 'Mooring' 
         run: |
-            cp * ../WEC-Sim/source/functions/moorDyn
+            cp -r * ../WEC-Sim/source/functions/moorDyn
             ls ../WEC-Sim/source/functions/moorDyn
         shell: bash
         working-directory: './MoorDyn'
