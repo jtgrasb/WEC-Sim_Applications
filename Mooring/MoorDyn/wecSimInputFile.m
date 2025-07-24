@@ -1,4 +1,4 @@
-%% Simulation Data 
+%% Simulation Data
 simu = simulationClass();             
 simu.simMechanicsFile = 'RM3MoorDyn.slx';       % WEC-Sim Model File
 simu.mode = 'accelerator';                

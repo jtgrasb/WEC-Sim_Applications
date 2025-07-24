@@ -61,6 +61,7 @@ classdef TestMooring < matlab.unittest.TestCase
         end        
         function testMooringMatrix(testCase)
             cd MooringMatrix
+            close_system('RM3MooringMatrix',0)
             wecSim
             close_system('RM3MooringMatrix',0)
             cd(testCase.testDir)
