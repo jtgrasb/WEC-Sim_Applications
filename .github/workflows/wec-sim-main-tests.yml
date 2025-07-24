@@ -1,5 +1,6 @@
 name: Test WEC-Sim main branch
 on:
+  workflow_dispatch: {}
   repository_dispatch:
     types:
       - wecsim-main
