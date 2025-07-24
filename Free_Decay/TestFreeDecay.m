@@ -53,31 +53,31 @@ classdef TestFreeDecay < matlab.unittest.TestCase
         function testFree_Decay_0m(testCase)
             cd('0m')
             wecSim
-            close_system('sphere')
+            close_system('sphere',0)
             cd(testCase.testDir)
         end        
         function testFree_Decay_1m(testCase)
             cd('1m')
             wecSim
-            close_system('sphere')
+            close_system('sphere',0)
             cd(testCase.testDir)
         end        
         function testFree_Decay_1m_ME(testCase)
             cd('1m-ME')
             wecSim
-            close_system('sphere')
+            close_system('sphere',0)
             cd(testCase.testDir)
         end        
         function testFree_Decay_3m(testCase)
             cd('3m')
             wecSim
-            close_system('sphere')
+            close_system('sphere',0)
             cd(testCase.testDir)
         end        
         function testFree_Decay_5m(testCase)
             cd('5m')
             wecSim
-            close_system('sphere')
+            close_system('sphere',0)
             cd(testCase.testDir)
         end        
     end    

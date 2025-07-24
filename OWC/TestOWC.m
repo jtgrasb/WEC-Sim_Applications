@@ -58,7 +58,7 @@ classdef TestOWC < matlab.unittest.TestCase
         function testOWCOrifice(testCase)
             cd('OrificeModel')
             wecSim
-            close_system('OWC_rigid')
+            close_system('OWC_rigid',0)
         end
 
         function testOWCFloating(testCase)
@@ -66,7 +66,7 @@ classdef TestOWC < matlab.unittest.TestCase
                 "MoorDyn is not installed");
             cd('FloatingOWC')
             wecSim
-            close_system('OWC_GBM')
+            close_system('OWC_GBM',0)
         end
     end
 end
