@@ -53,18 +53,22 @@ classdef TestMultipleConditionRuns < matlab.unittest.TestCase
         function testRM3_MCROPT1(testCase)
             cd RM3_MCROPT1
             wecSimMCR
+            close_system('RM3')
         end        
         function testRM3_MCROPT2(testCase)
             cd RM3_MCROPT2
             wecSimMCR
+            close_system('RM3')
         end        
         function testRM3_MCROPT3(testCase)
             cd RM3_MCROPT3
             wecSimMCR
+            close_system('RM3')
         end        
         function testRM3_MCROPT3_SeaState(testCase)
             cd RM3_MCROPT3_SeaState
             wecSimMCR
+            close_system('RM3')
         end        
     end    
 end

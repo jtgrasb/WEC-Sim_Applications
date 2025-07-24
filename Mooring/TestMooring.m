@@ -56,11 +56,13 @@ classdef TestMooring < matlab.unittest.TestCase
                         "MoorDyn is not installed");
             cd MoorDyn
             wecSim
+            close_system('RM3MoorDyn')
             cd(testCase.testDir)
         end        
         function testMooringMatrix(testCase)
             cd MooringMatrix
             wecSim
+            close_system('RM3MooringMatrix')
             cd(testCase.testDir)
         end        
     end    
