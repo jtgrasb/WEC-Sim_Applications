@@ -34,7 +34,8 @@ jobs:
             folder: Mooring
           - os: ubuntu-latest
             folder: OWC
-          - folder: Paraview_Visualization
+          - os: ubuntu-latest
+            folder: Paraview_Visualization
     name: "${{ matrix.folder }} - ${{ matrix.os }} - ${{ matrix.release }}"
     timeout-minutes: 45
     steps:
