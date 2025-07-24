@@ -53,13 +53,13 @@ classdef TestRM3PTOExtension < matlab.unittest.TestCase
         function testRM3_PTO_Extension_float(testCase)
             cd('float')
             wecSim
-            close_system('RM3')
+            close_system('RM3',0)
             cd(testCase.testDir)
         end        
         function testRM3_PTO_Extension_spar(testCase)
             cd('spar')
             wecSim
-            close_system('RM3')
+            close_system('RM3',0)
             cd(testCase.testDir)
         end              
     end    

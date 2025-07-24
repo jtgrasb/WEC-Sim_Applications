@@ -69,12 +69,12 @@ classdef TestVariableHydro < matlab.unittest.TestCase
         function testPY(testCase)
             cd('Passive_Yaw')
             runCases
-            close_system('OSWEC')
+            close_system('OSWEC',0)
         end
         function testVM(testCase)
             cd('Variable_Mass')
             wecSim
-            close_system('OSWEC')
+            close_system('OSWEC',0)
         end
     end
     

@@ -53,12 +53,12 @@ classdef TestPassiveYaw < matlab.unittest.TestCase
         function testPassiveYawOFF(testCase)
             cd('PassiveYawOFF')
             wecSim
-            close_system('OSWEC')
+            close_system('OSWEC',0)
         end        
         function testPassiveYawON(testCase)
             cd('PassiveYawON')
             wecSim
-            close_system('OSWEC')
+            close_system('OSWEC',0)
         end        
     end    
 end

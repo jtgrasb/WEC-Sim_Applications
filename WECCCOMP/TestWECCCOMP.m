@@ -58,12 +58,12 @@ classdef TestWECCCOMP < matlab.unittest.TestCase
         function testWECCCOMP_Fault(testCase)
             cd('WECCCOMP_Fault_Implementation')
             wecSim
-            close_system('WaveStar')
+            close_system('WaveStar',0)
         end
         function testWECCCOMP_MPC(testCase)
             cd('WECCCOMP_Nonlinear_Model_Predictive')
             wecSim
-            close_system('WaveStar')
+            close_system('WaveStar',0)
         end    
     end
 end
