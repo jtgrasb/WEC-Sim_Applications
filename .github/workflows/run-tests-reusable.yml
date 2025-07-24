@@ -30,8 +30,10 @@ jobs:
         release: [R2024b]
         include: ${{ fromJSON(inputs.include) }}
         exclude:
-          - folder: Mooring
-          - folder: Paraview_Visualization
+          - os: ubuntu-latest
+            folder: Mooring
+          - os: ubuntu-latest
+            folder: Paraview_Visualization
     name: "${{ matrix.folder }} - ${{ matrix.os }} - ${{ matrix.release }}"
     timeout-minutes: 45
     steps:
