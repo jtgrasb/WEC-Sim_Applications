@@ -1,27 +1,43 @@
 %% OWC - WAMIT GBM simulation
+%% Define the despiking structure
+despike = struct();
+despike.negThresh = 1e-3; % the threshold below which negative damping will be removed
+despike.N = 5; % will loop the despiking procedure N time before filtering
+despike.appFilt = 1; % boolean, 1 to apply low pass filter after despiking
 
-%% Run BEMIO for WAMIT Run and despike the hydro data
-% 1) load deSpike.mat, to create structure depSpike in workspace.
-% 2) call >> outHydro=badBemioFix_fcn({'test17a.out'},'WAMIT',deSpike,[1,1;3,3;5,5;7,7])
-% This will despike the resonance associated with the OWC moonpool and generate an h5
-% file with the _clean suffix.
+% thresholds: applied to 'Threshold' argument of findpeaks
+despike.B.Threshold = 2e-4; % damping
+despike.A.Threshold = 1e-3; % added mass
+despike.ExRe.Threshold = 1e-3; % real part excitation
+despike.ExIm.Threshold = 1e-3; % imag part excitation
 
+% minimum peak prominence, applied to 'MinPeakProminence' argument of findpeaks
+despike.B.Prominence = 2e-4;
+despike.A.Prominence = 1e-3;
+despike.ExRe.Prominence = 1e-3;
+despike.ExIm.Prominence = 1e-3;
 
-% outHydro = cleanBEM({'test17a.out'},'WAMIT',deSpike,[1,1;3,3;5,5;7,7]);
-% writeBEMIOH5(outHydro);
+% minimum peak distance, applied to 'MinPeakDistance' argument of findpeaks
+despike.A.MinPeakDistance = 3;
+despike.B.MinPeakDistance = 3;
+despike.ExRe.MinPeakDistance = 3;
+despike.ExIm.MinPeakDistance = 3;
 
-%% Run BEMIO for WAMIT Run
-% 1) load deSpike.mat, to create structure depSpike in workspace.
-% 2) call cleanBEM to despike the resonance associated with the OWC 
-% moonpool and generate an h5 file with the _clean suffix.
+% the b and a inputs to MATLAB's filtfilt(b,a,x) function
+despike.Filter.b = 0.02008336556421123561544384017452102853 .* [1 2 1];
+despike.Filter.a = [1 -1.561018075800718163392843962355982512236 0.641351538057563175243558362126350402832];
 
-load deSpike.mat
+%% Read and clean WAMIT results
 hydro = struct();
 hydro = readWAMIT(hydro,'test17a.out',[]);
-hydro = cleanBEM(hydro, deSpike);
+hydro = cleanBEM(hydro,despike);
+hydro.file = 'test17a_clean';
+
 hydro = radiationIRF(hydro,20,[],[],[],11);
 hydro = radiationIRFSS(hydro,20,[]);
 hydro = excitationIRF(hydro,20,[],[],[],11);
+
 hydro.plotDofs = [1,1;3,3;5,5;7,7];
-writeBEMIOH5(hydro);
 % plotBEMIO(hydro);
+
+writeBEMIOH5(hydro);
