@@ -31,7 +31,18 @@
 0				! Show pressure
 0	0 180		! Kochin function 		! Number of directions of calculation (0 for no calculations), Min and Max (degrees)
 0	50 400 400	! Free surface elevation 	! Number of points in x direction (0 for no calcutions) and y direction and dimensions of domain in x and y direction
-0					! Response Amplitude Operator (RAO), 0 no calculation, 1 calculated
+1					! Response Amplitude Operator (RAO), 0 no calculation, 1 calculated
 1					! output freq type, 1,2,3=[rad/s,Hz,s]
 --- QTF----------------------------------------------------------------------------------------------------------------------------
-0         				! QTF flag, 1 is calculated
+1         			! QTF flag, 1 is calculated 
+65	0.0628 4.082 	! Number of radial frequencies, Min, and Max values for the QTF computation
+1	  			  	! 1 Unidirection, Bidirection 0 
+2         			! Contrib, 1 DUOK, 2 DUOK+HASBO, 3 Full QTF (DUOK+HASBO+HASFS+ASYMP)
+NA 					! Name of free surface meshfile (Only for Contrib 3), type 'NA' if not applicable 
+0 	0	0			! Free surface QTF parameters: Re Nre NBessel (for Contrib 3)
+0 					! 1 Includes Hydrostatic terms of the quadratic first order motion, -[K]xi2_tilde
+1					! For QTFposProc, output freq type, 1,2,3=[rad/s,Hz,s]
+1         			! For QTFposProc, 1 includes DUOK in total QTFs, 0 otherwise
+1         			! For QTFposProc, 1 includes HASBO in total QTFs, 0 otherwise 
+0         			! For QTFposProc, 1 includes HASFS+ASYMP in total QTFs, 0 otherwise
+-----------------------------------------------------------------------------------------------------------------------------------

@@ -95,6 +95,4 @@ WECCCOMP/**/SS*.fig
 Passive_Yaw/**/IrrYaw.mat
 Passive_Yaw/**/figYawIrr.fig
 yaw*.mat
-
-
-
+!MOST/hydroData/VolturnUS15MW_nemoh/Results/QTF/*.dat
