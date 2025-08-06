@@ -34,6 +34,7 @@ classdef TestPassiveYawRegression < matlab.unittest.TestCase
             runLoadPassiveYawIrr;
             close_system('OSWEC',0)
             testCase.IrrYaw = load('IrrYaw.mat').("IrrYaw");
+            cd(fullfile(testCase.testDir));
         end        
     end
     
