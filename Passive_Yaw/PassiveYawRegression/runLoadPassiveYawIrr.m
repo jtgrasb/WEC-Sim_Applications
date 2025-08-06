@@ -42,12 +42,12 @@ plot(IrrYaw.time_org,IrrYaw.Pos_org,'-k')
 title('Passive Yaw, irregular wave')
 xlabel('Time(s)'); ylabel('Yaw position (rad)')
 subplot(1,2,2) % plots of yaw position
-plot(IrrYaw.time_new,IrrYaw.Pos_new,':k','LineWidth',1.4)
+plot(IrrYaw.time_new,IrrYaw.Force_new,':k','LineWidth',1.4)
 hold on; grid on;
-plot(IrrYaw.time_org,IrrYaw.Pos_org,'-k')
+plot(IrrYaw.time_org,IrrYaw.Force_org,'-k')
 xlabel('Time(s)'); ylabel('Total Yaw Force (N)')
 legend('New','Original')
-savefig('figYawIrr');                
+savefig('figYawIrr');
 
 %% Clear output and .slx directory
 try
