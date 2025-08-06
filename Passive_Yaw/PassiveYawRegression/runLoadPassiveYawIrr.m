@@ -34,7 +34,7 @@ IrrYaw.Sp.WEC_Sim_org.m2 = calcSpectralMoment(waves.omega,waves.spectrum,2);
 save('IrrYaw','IrrYaw')
 
 %% Plot Old vs. New Comparison
-figure(1); % plots of yaw position
+figure(); % plots of yaw position
 subplot(1,2,1)
 plot(IrrYaw.time_new,IrrYaw.Pos_new,':k','LineWidth',1.4)
 hold on; grid on;
