@@ -32,8 +32,10 @@ classdef TestPassiveYawRegression < matlab.unittest.TestCase
             cd(fullfile(testCase.testDir,   ...
                         'PassiveYawRegression'))
             runLoadPassiveYawIrr;
+            close_system('OSWEC',0)
             testCase.IrrYaw = load('IrrYaw.mat').("IrrYaw");
-        end
+            cd(fullfile(testCase.testDir));
+        end        
     end
     
     methods(TestClassTeardown)
@@ -41,7 +43,7 @@ classdef TestPassiveYawRegression < matlab.unittest.TestCase
             % Open new vs. org Comparisons
             if testCase.openCompare == 1
                 cd(testCase.testDir);
-                open(fullfile('.','PassiveYawRegression','figYawIrr.fig')); 
+                open(fullfile('.','PassiveYawRegression','figYawIrr.fig'));
             end
             set(0,'DefaultFigureVisible',testCase.OriginalDefault);
             testCase.assertEqual(get(0,'DefaultFigureVisible'),     ...

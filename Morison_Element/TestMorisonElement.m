@@ -53,11 +53,13 @@ classdef TestMorisonElement < matlab.unittest.TestCase
         function testMorisonElement(testCase)
             cd('morisonElement')
             wecSim
+            close_system('monopile',0)
             cd(testCase.testDir)
         end        
         function testMonopile(testCase)
             cd('monopile')
             wecSim
+            close_system('monopile',0)
             cd(testCase.testDir)
         end        
     end    

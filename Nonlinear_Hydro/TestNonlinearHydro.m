@@ -53,18 +53,22 @@ classdef TestNonlinearHydro < matlab.unittest.TestCase
         function testNonlinear_Hydro_ode4_Regular(testCase)
             cd(fullfile('ode4', 'Regular'))
             wecSim
+            close_system('ellipsoid',0)
         end        
         function testNonlinear_Hydro_ode4_RegularCIC(testCase)
             cd(fullfile('ode4', 'RegularCIC'))
             wecSim
+            close_system('ellipsoid',0)
         end        
         function testNonlinear_Hydro_ode45_Regular(testCase)
             cd(fullfile('ode45', 'Regular'))
             wecSim
+            close_system('ellipsoid',0)
         end        
         function testNonlinear_Hydro_ode45_RegularCIC(testCase)
             cd(fullfile('ode45', 'RegularCIC'))
             wecSim
+            close_system('ellipsoid',0)
         end        
     end    
 end

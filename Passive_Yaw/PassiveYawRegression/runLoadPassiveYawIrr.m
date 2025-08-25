@@ -34,7 +34,7 @@ IrrYaw.Sp.WEC_Sim_org.m2 = calcSpectralMoment(waves.omega,waves.spectrum,2);
 save('IrrYaw','IrrYaw')
 
 %% Plot Old vs. New Comparison
-figure(1); % plots of yaw position
+figure(); % plots of yaw position
 subplot(1,2,1)
 plot(IrrYaw.time_new,IrrYaw.Pos_new,':k','LineWidth',1.4)
 hold on; grid on;
@@ -45,11 +45,11 @@ title('Yaw position comparison')
 subplot(1,2,2) % plots of yaw position
 plot(IrrYaw.time_new,IrrYaw.Force_new,':k','LineWidth',1.4)
 hold on; grid on;
-
-plot(IrrYaw.time_org,IrrYaw.Force_org,'-k')
-xlabel('Time(s)'); ylabel('Total Yaw Force (N)')
-legend('New','Original')
-title('Yaw force comparison')
+plot(IrrYaw.time_org,IrrYaw.Force_org,'-k');
+xlabel('Time(s)');
+ylabel('Total Yaw Force (N)');
+legend('New','Original');
+title('Yaw force comparison');
 
 sgtitle('Passive yaw regression, irregular wave')
 savefig('figYawIrr');                

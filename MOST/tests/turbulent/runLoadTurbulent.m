@@ -3,7 +3,9 @@ global plotNO
 locdir = pwd;
 
 %% Run Simulation
+cd ../..
 wecSim;
+cd tests/turbulent/
 
 %% Post-Process Data
 % Body 1
@@ -43,7 +45,6 @@ save('turbulent','turbulent')
 
 %% Clear output and .slx directory
 try
-	rmdir('output','s')
 	rmdir('temp','s')
 	rmdir('slprj','s')
 catch

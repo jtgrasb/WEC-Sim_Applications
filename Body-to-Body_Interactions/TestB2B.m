@@ -53,26 +53,32 @@ classdef TestB2B < matlab.unittest.TestCase
         function testB2B_Case1(testCase)
             cd('B2B_Case1')
             wecSim
+            close_system('RM3',0)
         end
         function testB2B_Case2(testCase)
             cd('B2B_Case2')
             wecSim
+            close_system('RM3',0)
         end
         function testB2B_Case3(testCase)
             cd('B2B_Case3')
             wecSim
+            close_system('RM3',0)
         end        
         function testB2B_Case4(testCase)
             cd('B2B_Case4')
             wecSim
+            close_system('RM3',0)
         end        
         function testB2B_Case5(testCase)
             cd('B2B_Case5')
             wecSim
+            close_system('RM3',0)
         end        
         function testB2B_Case6(testCase)
             cd('B2B_Case6')
             wecSim
+            close_system('RM3',0)
         end        
     end    
 end
