@@ -55,7 +55,8 @@ jobs:
         if: matrix.folder == 'Mooring' || matrix.folder == 'Paraview_Visualization'
         uses: actions/checkout@v4
         with:
-          repository: WEC-Sim/MoorDyn
+          repository: jtgrasb/MoorDyn
+          ref: 'main' 
           path: './MoorDyn'
       - name: Copy MoorDyn Files
         if: matrix.folder == 'Mooring' || matrix.folder == 'Paraview_Visualization'
