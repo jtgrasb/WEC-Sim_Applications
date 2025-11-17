@@ -1,12 +1,12 @@
 %% Simulation Data
 simu = simulationClass();
-simu.simMechanicsFile = 'OSWEC_RO_inertiaOutside.slx';     % Specify Simulink Model File
+simu.simMechanicsFile = 'OSWEC_RO.slx';     % Specify Simulink Model File
 %simu.mode = 'rapid-accelerator';           % Specify Simulation Mode ('normal','accelerator','rapid-accelerator')
-simu.explorer='on';                        % Turn SimMechanics Explorer (on/off)
+simu.explorer='off';                        % Turn SimMechanics Explorer (on/off)
 simu.solver = 'ode4';                       %simu.solver = 'ode4' for fixed step & simu.solver = 'ode45' for variable step 
 simu.startTime = 0;                         % Simulation Start Time [s]
-simu.rampTime = 20;
-simu.endTime=30;
+simu.rampTime = 50;
+simu.endTime = 300;
 simu.dt = 0.01;                             %Simulation time-step [s] for a convolution function in the radiation force calculation 
 simu.cicEndTime = 30;
 
@@ -53,6 +53,8 @@ constraint(3).location = [4.7021271782+0.9 0 -8.7];
 
 constraint(4)= constraintClass('Constraint4'); % Initialize ConstraintClass 
 constraint(4).location = [0+0.9 0 -7];
+
+inertiaBlock = 1e-3; % kg - small mass on follower side of PTO used to resolve degenerate mass errors
 
 pto(1) = ptoClass('PTO1');                     % Initialize ptoClass for PTO1
 pto(1).stiffness = 0;                          % PTO Stiffness Coeff [Nm/rad]
