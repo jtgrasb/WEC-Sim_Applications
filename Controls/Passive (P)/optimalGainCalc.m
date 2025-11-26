@@ -23,14 +23,29 @@ omega = (1/T)*(2*pi);
 hydro.simulation_parameters.w_extended = sort([hydro.simulation_parameters.w omega]);
 omegaIndex = find(hydro.simulation_parameters.w_extended == omega, 1, 'first');
 
+freqs = hydro.simulation_parameters.w_extended/(2*pi);
+df = zeros(size(freqs));
+df(1) = freqs(2) - freqs(1);
+for ii = 2:length(freqs)-1
+    df(ii) = (freqs(ii+1) - freqs(ii-1))/2;
+end
+df(end) = freqs(end) - freqs(end-1);
+% create irregular wave spectrum
+bPM = (5/4)*(1/waves.period)^(4);
+aPM =  bPM*(waves.height/2)^2;
+fSpectrum  = (aPM*(hydro.simulation_parameters.w_extended/(2*pi)).^(-5).*exp(-bPM*(hydro.simulation_parameters.w_extended/(2*pi)).^(-4)));
+spectrum = fSpectrum;
+ampSpect = sqrt(2*spectrum.*df)';
+
 % Define excitation force based on wave conditions
-ampSpect = zeros(length(hydro.simulation_parameters.w_extended),1);
-ampSpect(omegaIndex) = A;
+% ampSpect = zeros(length(hydro.simulation_parameters.w_extended),1);
+% ampSpect(omegaIndex) = A;
 Fe_re = squeeze(hydro.hydro_coeffs.excitation.re(dof, 1, :)) * simu.rho * simu.gravity;
 Fe_im = squeeze(hydro.hydro_coeffs.excitation.im(dof, 1, :)) * simu.rho * simu.gravity;
 
 Fe_interp = interp1(hydro.simulation_parameters.w, Fe_re + 1j * Fe_im, hydro.simulation_parameters.w_extended, 'spline', 'extrap')';
 Fexc = ampSpect.*Fe_interp;
+
 
 % Define the intrinsic mechanical impedance for the device
 mass = simu.rho * hydro.properties.volume;
@@ -86,3 +101,19 @@ fprintf('Optimal proportional gain for passive control KpOpt = %f\n', KpOpt);
 Zpto = KpOpt + Ki/(1j*omega);
 P = -sum(0.5*real(Zpto).*((abs(Fexc)).^2./(abs(Zpto+Zi)).^2));
 fprintf('Expected power with optimal passive control P = %f\n', P);
+
+% test a bunch of different Kps within range
+KpTestVals = 2e5:.5e5:10e5;
+for ii = 1:length(KpTestVals)
+    Zpto = KpTestVals(ii) + Ki/(1j*omega);
+    PTest(ii) = -sum(0.5*real(Zpto).*((abs(Fexc)).^2./(abs(Zpto+Zi)).^2));
+end
+
+figure()
+plot(KpTestVals,PTest)
+hold on
+xline(KpOpt,'--')
+xlabel('Kp (Nms/rad)')
+ylabel('power (W)')
+legend('Kp tests','theoretical optimal')
+title(sprintf('T = %.1f',waves.period))
