@@ -3,8 +3,8 @@ simu = simulationClass();
 simu.simMechanicsFile = 'RM3MoorDyn.slx';       % WEC-Sim Model File
 simu.mode = 'accelerator';
 simu.explorer = 'off';
-simu.rampTime = 40;
-simu.endTime = 400;                       
+simu.rampTime = 4;
+simu.endTime = 10;                       
 simu.dt = 0.01;
 simu.cicDt = 0.05;
 
