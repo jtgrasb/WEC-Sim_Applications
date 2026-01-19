@@ -7,7 +7,7 @@ simu.startTime = 0;                     % Simulation Start Time [s]
 simu.rampTime = 40;                    % Wave Ramp Time [s]
 simu.endTime = 400;                     % Simulation End Time [s]
 simu.solver = 'ode4';                   % simu.solver = 'ode4' for fixed step & simu.solver = 'ode45' for variable step 
-simu.dt = 0.02; 							% Simulation time-step [s]
+simu.dt = 0.2; 							% Simulation time-step [s]
 simu.mcrMatFile = 'mcrCases.mat';
 simu.cicEndTime = 15;
 
@@ -32,7 +32,7 @@ waves.period = 4;                       % Wave Period [s] - this wave period was
 bemDisps = [0 4]; % need to update with finer discretization later
 % files = strings(1, length(bemDisps));
 for ii = 1:length(bemDisps)
-    files{ii} = ['hydroData/h5s_phaseShift/sphere' strrep(num2str(bemDisps(ii), '%.2f'), '.', '_') '.h5'];
+    files{ii} = ['hydroData/h5s_NoExc/sphere' strrep(num2str(bemDisps(ii), '%.2f'), '.', '_') '.h5'];
 end
 
 % Sphere

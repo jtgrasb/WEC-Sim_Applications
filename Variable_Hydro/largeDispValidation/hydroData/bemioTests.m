@@ -4,27 +4,57 @@ clc
 
 %% check h5 cg's
 
-newX = 0:.05:27;
-
 hydro_35 = struct();
 hydro_35 = readH5ToStruct('h5s_phaseShift/sphere3_50.h5');
 hydro_35 = addDefaultPlotVars(hydro_35);
 hydro_375 = struct();
 hydro_375 = readH5ToStruct('h5s_phaseShift/sphere3_75.h5');
 hydro_375 = addDefaultPlotVars(hydro_375);
-hydro_38 = struct();
-hydro_38 = readH5ToStruct('h5s_phaseShift/sphere3_80.h5');
-hydro_38= addDefaultPlotVars(hydro_38);
-hydro_385 = struct();
-hydro_385 = readH5ToStruct('h5s_phaseShift/sphere3_85.h5');
-hydro_385 = addDefaultPlotVars(hydro_385);
+% hydro_38 = struct();
+% hydro_38 = readH5ToStruct('h5s_phaseShift/sphere3_80.h5');
+% hydro_38= addDefaultPlotVars(hydro_38);
+% hydro_385 = struct();
+% hydro_385 = readH5ToStruct('h5s_phaseShift/sphere3_85.h5');
+% hydro_385 = addDefaultPlotVars(hydro_385);
 hydro_4 = struct();
 hydro_4 = readH5ToStruct('h5s_phaseShift/sphere4_00.h5');
 hydro_4 = addDefaultPlotVars(hydro_4);
-plotExcitationPhase(hydro_35,hydro_375,hydro_38,hydro_385,hydro_4)
+plotBEMIO(hydro_35,hydro_375,hydro_4)
 
-% for ii = 1:length(newX)
+%%
+% zero out excitation
+hydro_000 = struct();
+hydro_000 = readH5ToStruct('h5s_phaseShift/sphere0_00.h5');
+hydro_000 = addDefaultPlotVars(hydro_000);
+hydro_4 = struct();
+hydro_4 = readH5ToStruct('h5s_phaseShift/sphere4_00.h5');
+hydro_4 = addDefaultPlotVars(hydro_4);
 
+removeVars = {'ex','sc','fk'};
+fields = fieldnames(hydro_000);
+for ii = 1:length(fields)
+    if contains(fields{ii},removeVars)
+        disp(fields{ii})
+        hydro_000.(fields{ii}) = 0*hydro_000.(fields{ii});
+        hydro_4.(fields{ii}) = 0*hydro_4.(fields{ii});
+    end
+end
+% hydro_4.cg = hydro_000.cg;
+% hydro_4.cb = hydro_000.cb;
+hydro_000.Khs = hydro_000.Khs.*eye(size(hydro_000.Khs));
+hydro_4.Khs = hydro_4.Khs.*eye(size(hydro_4.Khs));
+
+for ii = 1:length(hydro_000.w)
+    hydro_000.A(:,:,ii) = hydro_000.A(:,:,ii).*eye(size(hydro_000.A(:,:,ii)));
+    hydro_4.A(:,:,ii) = hydro_000.A(:,:,ii).*eye(size(hydro_000.A(:,:,ii)));
+    hydro_000.B(:,:,ii) = hydro_000.B(:,:,ii).*eye(size(hydro_000.B(:,:,ii)));
+    hydro_4.B(:,:,ii) = hydro_000.B(:,:,ii).*eye(size(hydro_000.B(:,:,ii)));
+end
+
+hydro_000.file = ['h5s_NoExc/sphere' strrep(num2str(0.00, '%.2f'), '.', '_')];
+hydro_4.file = ['h5s_NoExc/sphere' strrep(num2str(4.00, '%.2f'), '.', '_')];
+% writeBEMIOH5(hydro_000)
+% writeBEMIOH5(hydro_4)
 
 %%
 hydro = struct();

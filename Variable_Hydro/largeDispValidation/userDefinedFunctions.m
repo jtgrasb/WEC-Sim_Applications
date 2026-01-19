@@ -57,6 +57,30 @@ ylabel('surge forces (N)')
 legend('total','excitation','added mass','radiation damping','restoring')
 ylim([-1e6, 1e6])
 
+figure()
+plot(output.bodies(1).time, output.bodies(1).forceTotal(:,3))
+hold on
+plot(output.bodies(1).time, output.bodies(1).forceExcitation(:,3))
+plot(output.bodies(1).time, output.bodies(1).forceAddedMass(:,3))
+plot(output.bodies(1).time, output.bodies(1).forceRadiationDamping(:,3))
+plot(output.bodies(1).time, output.bodies(1).forceRestoring(:,3))
+xlabel('time (s)')
+ylabel('heave forces (N)')
+legend('total','excitation','added mass','radiation damping','restoring')
+ylim([-1e6, 1e6])
+
+figure()
+plot(output.bodies(1).time, output.bodies(1).forceTotal(:,5))
+hold on
+plot(output.bodies(1).time, output.bodies(1).forceExcitation(:,5))
+plot(output.bodies(1).time, output.bodies(1).forceAddedMass(:,5))
+plot(output.bodies(1).time, output.bodies(1).forceRadiationDamping(:,5))
+plot(output.bodies(1).time, output.bodies(1).forceRestoring(:,5))
+xlabel('time (s)')
+ylabel('pitch forces (Nm)')
+legend('total','excitation','added mass','radiation damping','restoring')
+ylim([-1e6, 1e6])
+
 %%
 % check cgs of hydroForces
 fields = fieldnames(body(1).hydroForce);
@@ -68,11 +92,55 @@ for ii = 1:length(fields)
 end
 
 figure()
-plot(1:length(cg_new),cg_new)
+plot(1:size(cg_new,2),cg_new)
 hold on
-plot(1:length(cg_new),cb_new,'--')
+plot(1:size(cg_new,2),cb_new,'--')
 xlabel('hf index')
 ylabel('cg/cb')
 legend('cg x','cg y','cg z','cb x','cb y','cb z')
 
-%% check mass
+%% check restoring inputs
+
+figure()
+plot(dispDiff)
+xlabel('time (s)')
+ylabel('displacement diff (m)')
+ylim([-10,10])
+
+figure()
+plot(netBuoyancyForce)
+xlabel('time (s)')
+ylabel('net buoyancy force (N)')
+
+figure()
+plot(linearRestoringForce)
+xlabel('time (s)')
+ylabel('linear restoring force (N)')
+ylim([-1e5,1e5])
+legend()
+
+figure()
+plot(output.bodies(1).time,output.bodies(1).position(:,3)-body(1).centerGravity(3))
+hold on
+plot(output.bodies(1).time,hfIndex.Data)
+xlabel('time (s)')
+ylabel('heave (m)')
+legend('heave disp','hf index')
+ylim([-2, 2])
+
+figure()
+plot(adjustedMass)
+xlabel('time (s)')
+ylabel('adj mass (kg)')
+
+figure()
+plot(inertia)
+xlabel('time (s)')
+ylabel('inertia (kgm^2)')
+legend()
+
+figure()
+plot(cgDiff)
+xlabel('time (s)')
+ylabel('cg diff (m)')
+legend()
