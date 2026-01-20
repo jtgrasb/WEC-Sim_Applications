@@ -9,7 +9,7 @@ simu.explorer = 'off';
 %% Wave Information  
 % Regular Waves  
 waves = waveClass('noWaveCIC');    
-
+ 
 %% Body Data
 % Float
 body(1) = bodyClass('../../_Common_Input_Files/Sphere/hydroData/sphere.h5');    	

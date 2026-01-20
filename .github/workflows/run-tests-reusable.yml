@@ -27,7 +27,7 @@ jobs:
       matrix:
         folder: ${{ fromJSON(inputs.folder) }}
         os: [ubuntu-latest, windows-latest]
-        release: [R2024b]
+        release: [R2020b, R2024b]
         include: ${{ fromJSON(inputs.include) }}
         exclude:
           - os: ubuntu-latest
