@@ -50,15 +50,9 @@ classdef TestFullDirectionalWaves < matlab.unittest.TestCase
     end
     
     methods(Test)        
-        function testMHKiT_NDBC_Waves(testCase)
-            cd MHKiT_NDBC_Waves
+        function testFullDirectionalWaves(testCase)
             wecSim
             close_system('OSWEC',0)
-        end        
-        function testOOI_Waves(testCase)
-            cd OOI_Waves
-            wecSim
-            close_system('OSWEC',0)
-        end        
+        end               
     end    
 end
