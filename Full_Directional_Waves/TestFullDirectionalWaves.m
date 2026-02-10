@@ -52,7 +52,6 @@ classdef TestFullDirectionalWaves < matlab.unittest.TestCase
     methods(Test)        
         function testFullDirectionalWaves(testCase)
             wecSim
-            close_system('OSWEC',0)
         end               
     end    
 end
