@@ -11,4 +11,4 @@ jobs:
   main:
     uses: ./.github/workflows/all-tests-reusable.yml
     with:
-      client_payload: ${{ toJSON(github.event.client_payload) }}
+      client_payload: ${{ toJSON(github.event.client_payload) }} || fromJSON('{"branch":"dev","sha":"manual"}')) }}
