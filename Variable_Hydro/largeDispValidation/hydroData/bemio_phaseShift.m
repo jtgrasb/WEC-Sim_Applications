@@ -2,6 +2,38 @@ close all
 clear all
 clc
 
+%% delete old files based on sig figs
+
+folder = 'h5s_phaseShift';   % <-- change
+files = dir(fullfile(folder, '*.h5'));
+
+if any(strcmp({files.name}, 'sphere0_00.h5'))
+
+    % Mark files to delete: names ending with _NN.h5 (exactly two digits before .h5)
+    pat = '_\d{2}\.h5$';
+
+    toDelete = false(numel(files),1);
+    for k = 1:numel(files)
+        toDelete(k) = ~isempty(regexp(files(k).name, pat, 'once'));
+    end
+
+    namesToDelete = string({files(toDelete).name}');
+    nDel = numel(namesToDelete);
+
+    disp("Deleting these files:");
+    disp(namesToDelete);
+    fprintf('Total to delete: %d\n', nDel);
+
+    for k = find(toDelete).'
+        delete(fullfile(folder, files(k).name));
+    end
+
+    fprintf('Deleted: %d files\n', nDel);
+
+else
+    fprintf('Not deleting anything: "sphere0_00.h5" not found in %s\n', folder);
+end
+
 %% phase shift and write h5s
 
 hydro0 = struct();
@@ -13,7 +45,7 @@ hydro0 = excitationIRF(hydro0,15,[],[],[],[]);
 
 % hydroArrayPhaseShift contains all 3 files necessary to test interpolation
 xVec = 0;
-newX = -1:.01:1;
+newX = -1:0.0025:25;
 gravity = 9.81;
 wavenumber = hydro0.w.^2./gravity; % 
 
@@ -32,7 +64,7 @@ for ii = 1:length(newX)
     hydroArrayPhaseShift{ii}.cg(1) = newX(ii);
     hydroArrayPhaseShift{ii}.cb(1) = newX(ii);
 
-    hydroArrayPhaseShift{ii}.file = ['h5s_phaseShift/sphere' strrep(num2str(newX(ii), '%.2f'), '.', '_')];
+    hydroArrayPhaseShift{ii}.file = ['h5s_phaseShift/sphere' strrep(num2str(newX(ii), '%.4f'), '.', '_')];
     writeBEMIOH5(hydroArrayPhaseShift{ii})
 end
 

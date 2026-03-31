@@ -6,56 +6,64 @@ clc
 
 % base = load('noPretension/base.mat');
 largeXY = load('noPretension/largeXY.mat'); % large xy and var hydro no pretension should be different from base because they adjust the excitation at each timestep 
-varHydro_05 = load('noPretension/varHydro0.05.mat');
-varHydro_02 = load('noPretension/varHydro0.02.mat');
+varHydro_5 = load('noPretension/varHydro0.5.mat');
+varHydro_1 = load('noPretension/varHydro0.1.mat');
+% varHydro_05 = load('noPretension/varHydro0.05.mat');
+% varHydro_02 = load('noPretension/varHydro0.02.mat');
 varHydro_01 = load('noPretension/varHydro0.01.mat');
+% varHydro_0025 = load('noPretension/varHydro0.0025.mat');
 
 figure()
 plot(largeXY.output.bodies(1).time, largeXY.output.bodies(1).position(:,1))
 hold on
-plot(varHydro_05.output.bodies(1).time, varHydro_05.output.bodies(1).position(:,1))
-plot(varHydro_02.output.bodies(1).time, varHydro_02.output.bodies(1).position(:,1))
+plot(varHydro_5.output.bodies(1).time, varHydro_5.output.bodies(1).position(:,1))
+plot(varHydro_1.output.bodies(1).time, varHydro_1.output.bodies(1).position(:,1))
 plot(varHydro_01.output.bodies(1).time, varHydro_01.output.bodies(1).position(:,1))
 xlabel('time (s)')
 ylabel('surge (m)')
-legend('Large XY', 'variable hydro (\Deltax = 0.05)', 'variable hydro (\Deltax = 0.02)', 'variable hydro (\Deltax = 0.02)')
+legend('Large XY', 'variable hydro (\Deltax = 0.5 m)', 'variable hydro (\Deltax = 0.1 m)', 'variable hydro (\Deltax = 0.01 m)')
 
 figure()
 plot(largeXY.output.bodies(1).time, largeXY.output.bodies(1).position(:,3))
 hold on
-plot(varHydro_05.output.bodies(1).time, varHydro_05.output.bodies(1).position(:,3),'--')
-plot(varHydro_02.output.bodies(1).time, varHydro_02.output.bodies(1).position(:,3),'--')
+plot(varHydro_5.output.bodies(1).time, varHydro_5.output.bodies(1).position(:,3),'--')
+plot(varHydro_1.output.bodies(1).time, varHydro_1.output.bodies(1).position(:,3),'--')
 plot(varHydro_01.output.bodies(1).time, varHydro_01.output.bodies(1).position(:,3),'--')
 xlabel('time (s)')
 ylabel('heave (m)')
-legend('Large XY', 'variable hydro (\Deltax = 0.05)', 'variable hydro (\Deltax = 0.02)', 'variable hydro (\Deltax = 0.02)')
+legend('Large XY', 'variable hydro (\Deltax = 0.5 m)', 'variable hydro (\Deltax = 0.1 m)', 'variable hydro (\Deltax = 0.01 m)')
 
-%%
+%% pretension cases
 
-base = load('base.mat');
-largeXY = load('largeXY.mat');
-varHydroCoarse = load('varHydroCoarse.mat');
-varHydroFine = load('varHydroFine.mat');
-varHydroFine2 = load('varHydroFine2.mat');
+% base = load('noPretension/base.mat');
+largeXY = load('pretension/largeXY.mat'); % large xy and var hydro no pretension should be different from base because they adjust the excitation at each timestep 
+varHydro_5 = load('pretension/varHydro0.5.mat');
+varHydro_1 = load('pretension/varHydro0.1.mat');
+% varHydro_05 = load('pretension/varHydro0.05.mat');
+% varHydro_02 = load('pretension/varHydro0.02.mat');
+varHydro_01 = load('pretension/varHydro0.01.mat');
+% varHydro_0025 = load('pretension/varHydro0.01.mat');
 
 figure()
-plot(base.output.bodies(1).time, base.output.bodies(1).position(:,1))
+colororder("reef")
+plot(largeXY.output.bodies(1).time, largeXY.output.bodies(1).position(:,1),'k-','LineWidth',2)
 hold on
-plot(largeXY.output.bodies(1).time, largeXY.output.bodies(1).position(:,1))
-plot(varHydroCoarse.output.bodies(1).time, varHydroCoarse.output.bodies(1).position(:,1),'--')
-plot(varHydroFine.output.bodies(1).time, varHydroFine.output.bodies(1).position(:,1),'--')
-plot(varHydroFine2.output.bodies(1).time, varHydroFine2.output.bodies(1).position(:,1),':')
+plot(varHydro_5.output.bodies(1).time, varHydro_5.output.bodies(1).position(:,1),'k--','Marker','x')
+plot(varHydro_1.output.bodies(1).time, varHydro_1.output.bodies(1).position(:,1),'k--','Marker','s')
+plot(varHydro_01.output.bodies(1).time, varHydro_01.output.bodies(1).position(:,1),'k--','Marker','^')
 xlabel('time (s)')
 ylabel('surge (m)')
-legend('baseline','Large XY', 'variable hydro coarse', 'variable hydro fine')
+legend('Large XY', 'variable hydro (\Deltax = 0.5 m)', 'variable hydro (\Deltax = 0.1 m)', 'variable hydro (\Deltax = 0.01 m)')
+xlim([395, 400])
 
 figure()
-plot(base.output.bodies(1).time, base.output.bodies(1).position(:,3))
+colororder("reef")
+plot(largeXY.output.bodies(1).time, largeXY.output.bodies(1).position(:,3),'k-','LineWidth',2)
 hold on
-plot(largeXY.output.bodies(1).time, largeXY.output.bodies(1).position(:,3))
-plot(varHydroCoarse.output.bodies(1).time, varHydroCoarse.output.bodies(1).position(:,3),'--')
-plot(varHydroFine.output.bodies(1).time, varHydroFine.output.bodies(1).position(:,3),'--')
-plot(varHydroFine2.output.bodies(1).time, varHydroFine2.output.bodies(1).position(:,3),':')
+plot(varHydro_5.output.bodies(1).time, varHydro_5.output.bodies(1).position(:,3),'k--','Marker','x')
+plot(varHydro_1.output.bodies(1).time, varHydro_1.output.bodies(1).position(:,3),'k--','Marker','s')
+plot(varHydro_01.output.bodies(1).time, varHydro_01.output.bodies(1).position(:,3),'k--','Marker','^')
 xlabel('time (s)')
 ylabel('heave (m)')
-legend('baseline','Large XY', 'variable hydro coarse', 'variable hydro fine', 'variable hydro fine 2')
+legend('Large XY', 'variable hydro (\Deltax = 0.5 m)', 'variable hydro (\Deltax = 0.1 m)', 'variable hydro (\Deltax = 0.01 m)')
+xlim([395, 400])
