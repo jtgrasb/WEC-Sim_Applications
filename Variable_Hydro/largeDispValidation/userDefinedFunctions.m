@@ -29,7 +29,9 @@ else
         filename = sprintf('noPretension/base.mat');
     end
 end
-save(filename,"output")
+
+tElapsed = toc(tStart); % Stop
+save(filename,"output","tElapsed")
 
 % figure()
 % plot(output.bodies(1).time,output.bodies(1).forceRestoring(:,5))

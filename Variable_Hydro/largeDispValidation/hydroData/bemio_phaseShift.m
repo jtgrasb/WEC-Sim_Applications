@@ -68,3 +68,51 @@ for ii = 1:length(newX)
     writeBEMIOH5(hydroArrayPhaseShift{ii})
 end
 
+%% plot excitation to verify
+
+hydro0 = struct();
+hydro0 = readWAMIT(hydro0,'xDisps/sphere_0.out',[]);
+hydro0 = cleanBEM(hydro0,[]);
+hydro0 = radiationIRF(hydro0,15,[],[],[],[]);
+hydro0 = radiationIRFSS(hydro0,[],[]);
+hydro0 = excitationIRF(hydro0,15,[],[],[],[]);
+
+newX = 12.5;
+gravity = 9.81;
+wavenumber = hydro0.w.^2./gravity; % 
+
+phaseShift = wavenumber.*(-newX*cos(0));
+hydroPhaseShift125 = hydro0;
+hydroPhaseShift125.ex_ph = wrapToPi(hydroPhaseShift125.ex_ph + reshape(repmat(phaseShift,6,1),size(hydroPhaseShift125.ex_ph)));
+hydroPhaseShift125.ex_re = hydroPhaseShift125.ex_ma.*cos(hydroPhaseShift125.ex_ph);
+hydroPhaseShift125.ex_im = hydroPhaseShift125.ex_ma.*sin(hydroPhaseShift125.ex_ph);
+hydroPhaseShift125.cg(1) = newX;
+hydroPhaseShift125.cb(1) = newX;
+
+hydro125 = struct();
+hydro125 = readWAMIT(hydro125,'xDisps/sphere_12_5.out',[]);
+hydro125 = cleanBEM(hydro125,[]);
+hydro125 = radiationIRF(hydro125,15,[],[],[],[]);
+hydro125 = radiationIRFSS(hydro125,[],[]);
+hydro125 = excitationIRF(hydro125,15,[],[],[],[]);
+
+% plot excitation in the heave direction
+figure()
+plot(hydro125.w, hydro125.ex_ma(3,:),'k-','Marker','x','MarkerSize',8)
+hold on
+plot(hydroPhaseShift125.w, hydroPhaseShift125.ex_ma(3,:),'k-','Marker','^','MarkerSize',8)
+xlim([0, 4])
+xlabel('Frequency (rad/s)')
+ylabel('Normalized excitation magnitude ()')
+legend('BEM: x = 12.5 m', 'Phase shifted: x = 12.5 m')
+exportgraphics(gcf, 'excMag.pdf', 'ContentType', 'vector')
+
+figure()
+plot(hydro125.w, hydro125.ex_ph(3,:),'k-','Marker','x','MarkerSize',8)
+hold on
+plot(hydroPhaseShift125.w, hydroPhaseShift125.ex_ph(3,:),'k-','Marker','^','MarkerSize',8)
+xlim([0, 4])
+xlabel('Frequency (rad/s)')
+ylabel('Normalized excitation phase ()')
+legend('BEM: x = 12.5 m', 'Phase shifted: x = 12.5 m')
+exportgraphics(gcf, 'excPhase.pdf', 'ContentType', 'vector')

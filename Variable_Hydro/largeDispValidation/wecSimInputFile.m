@@ -36,12 +36,12 @@ if varHydro == 1
     bemDisps = bemMinX:bemDeltaX:bemMaxX; % need to update with finer discretization later
     % files = strings(1, length(bemDisps));
     for ii = 1:length(bemDisps)
-        files{ii} = ['hydroData/h5s_phaseShift/sphere' strrep(num2str(bemDisps(ii), '%.2f'), '.', '_') '.h5'];
+        files{ii} = ['hydroData/h5s_phaseShift/sphere' strrep(num2str(bemDisps(ii), '%.4f'), '.', '_') '.h5'];
     end
     
     % Sphere - variable hydro option
     body(1) = bodyClass(files);          % Create the body(1) Variable
-    body(1).geometryFile = '../../_Common_Input_Files/Sphere/geometry/sphere.stl';        % Location of Geomtry File
+    body(1).geometryFile = 'geometry/sphere.stl';        % Location of Geomtry File
     body(1).mass = 'equilibrium';                           % Body Mass
     body(1).inertia = [20907301 21306090.66 37085481.11];   % Moment of Inertia [kg*m^2]     
     body(1).initial.displacement = [0 0 0];
@@ -50,16 +50,16 @@ if varHydro == 1
     body(1).variableHydro.hydroForceIndexInitial = find(bemDisps == 0); 
 elseif largeXY == 1
     % Sphere - large xy option
-    body(1) = bodyClass('hydroData/h5s_phaseShift/sphere0_00.h5');
-    body(1).geometryFile = '../../_Common_Input_Files/Sphere/geometry/sphere.stl';        % Location of Geomtry File
+    body(1) = bodyClass('hydroData/h5s_phaseShift/sphere0_0000.h5');
+    body(1).geometryFile = 'geometry/sphere.stl';        % Location of Geomtry File
     body(1).mass = 'equilibrium';                           % Body Mass
     body(1).inertia = [20907301 21306090.66 37085481.11];   % Moment of Inertia [kg*m^2]     
     body(1).initial.displacement = [0 0 0];
     body(1).largeXYDisplacement.option = 1;
 else
     % Sphere - large xy option
-    body(1) = bodyClass('hydroData/h5s_phaseShift/sphere0_00.h5');
-    body(1).geometryFile = '../../_Common_Input_Files/Sphere/geometry/sphere.stl';        % Location of Geomtry File
+    body(1) = bodyClass('hydroData/h5s_phaseShift/sphere0_0000.h5');
+    body(1).geometryFile = 'geometry/sphere.stl';        % Location of Geomtry File
     body(1).mass = 'equilibrium';                           % Body Mass
     body(1).inertia = [20907301 21306090.66 37085481.11];   % Moment of Inertia [kg*m^2]     
 end
