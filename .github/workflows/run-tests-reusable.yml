@@ -30,6 +30,12 @@ jobs:
         release: [R2024b]
         include: ${{ fromJSON(inputs.include) }}
         exclude:
+          - os: windows-latest
+            folder: Mooring
+          - os: windows-latest
+            folder: OWC
+          - os: windows-latest
+            folder: Paraview_Visualization
           - os: ubuntu-latest
             folder: Mooring
           - os: ubuntu-latest
