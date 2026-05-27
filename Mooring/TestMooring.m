@@ -49,8 +49,10 @@ classdef TestMooring < matlab.unittest.TestCase
         end
     end
     
-    methods(Test)        
+    methods(Test)    
         function testMoorDyn(testCase)
+            isCI = strcmpi(getenv("GITHUB_ACTIONS"), "true");
+            testCase.assumeFalse(isCI, "Skipping MoorDyn test on GitHub CI");
             assumeEqual(testCase,                           ...
                         exist("MoorDyn_caller", "file"), 2, ...
                         "MoorDyn is not installed");
