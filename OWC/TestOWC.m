@@ -5,8 +5,8 @@ classdef TestOWC < matlab.unittest.TestCase
         testDir
         h5DirOrifice = ['OrificeModel',filesep,'hydroData']
         h5NameOrifice = 'test17a.h5'
-        % h5DirFloating = ['FloatingOWC',filesep,'hydroData']
-        % h5NameFloating = 'floatingOWC.h5'
+        h5DirFloating = ['FloatingOWC',filesep,'hydroData']
+        h5NameFloating = 'floatingOWC.h5'
     end
     methods (Access = 'public')
         function obj = TestOWC
