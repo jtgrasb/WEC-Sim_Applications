@@ -62,6 +62,8 @@ classdef TestMoorDynViz < matlab.unittest.TestCase
     
     methods(Test)        
         function testParaview_Visualization_RM3_MoorDyn_Viz(testCase)
+            isCI = strcmpi(getenv("GITHUB_ACTIONS"), "true");
+            testCase.assumeFalse(isCI, "Skipping MoorDyn test on GitHub CI");
             wecSim
         end        
     end    

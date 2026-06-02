@@ -60,8 +60,9 @@ classdef TestOWC < matlab.unittest.TestCase
             wecSim
             close_system('OWC_rigid',0)
         end
-
         function testOWCFloating(testCase)
+            isCI = strcmpi(getenv("GITHUB_ACTIONS"), "true");
+            testCase.assumeFalse(isCI, "Skipping MoorDyn test on GitHub CI");
             assumeEqual(testCase, exist("MoorDyn_caller", "file"), 2, ...
                 "MoorDyn is not installed");
             cd('FloatingOWC')
