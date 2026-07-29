@@ -1,15 +1,15 @@
-classdef TestFreeDecay < matlab.unittest.TestCase
+classdef TestFullDirectionalWaves < matlab.unittest.TestCase
     
     properties
         OriginalDefault
         testDir
-        h5Dir = '../_Common_Input_Files/Sphere/hydroData/'
-        h5Name = 'sphere.h5'
-        outName = 'sphere.out'
+        h5Dir = '../_Common_Input_Files/OSWEC/hydroData/'
+        h5Name = 'oswec.h5'
+        outName = 'oswec.out'
     end    
     
     methods (Access = 'public')        
-        function obj = TestFreeDecay
+        function obj = TestFullDirectionalWaves
             obj.testDir = fileparts(mfilename('fullpath'));
         end    
     end
@@ -58,35 +58,9 @@ classdef TestFreeDecay < matlab.unittest.TestCase
     end
     
     methods(Test)        
-        function testFree_Decay_0m(testCase)
-            cd('0m')
+        function testFullDirectionalWaves(testCase)
             wecSim
-            close_system('sphere',0)
-            cd(testCase.testDir)
-        end        
-        function testFree_Decay_1m(testCase)
-            cd('1m')
-            wecSim
-            close_system('sphere',0)
-            cd(testCase.testDir)
-        end        
-        function testFree_Decay_1m_ME(testCase)
-            cd('1m-ME')
-            wecSim
-            close_system('sphere',0)
-            cd(testCase.testDir)
-        end        
-        function testFree_Decay_3m(testCase)
-            cd('3m')
-            wecSim
-            close_system('sphere',0)
-            cd(testCase.testDir)
-        end        
-        function testFree_Decay_5m(testCase)
-            cd('5m')
-            wecSim
-            close_system('sphere',0)
-            cd(testCase.testDir)
-        end        
+            close_system('OSWEC',0)
+        end
     end    
 end
